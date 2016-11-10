@@ -142,8 +142,21 @@ function showPic() {
 	let formattedPicUrl = HTMLbioPic.replace("%data%",bio.biopic);
 	$("#header").append(formattedPicUrl);
 }
+function showContactInfo(){
+	let formattedMobile = HTMLmobile.replace("%data%",bio.contacts.mobile);
+	let formattedEmail = HTMLemail.replace("%data%",bio.contacts.email);
+	let formattedGithub = HTMLgithub.replace("%data%",bio.contacts.github);
+	let formattedTwitter = HTMLtwitter.replace("%data%",bio.contacts.twitter);
+	let formattedLocation = HTMLlocation.replace("%data%",bio.contacts.location)
+	$("#topContacts:last").append(formattedMobile);
+	$("#topContacts:last").append(formattedEmail);
+	$("#topContacts:last").append(formattedGithub);
+	$("#topContacts:last").append(formattedTwitter);
+	$("#topContacts:last").append(formattedLocation);
 
+}
 showPic();
 showRole();
 showName();
+showContactInfo();
 showJobs();
