@@ -17,19 +17,13 @@ let work = {
 		"title": "Android Developer",
 		"location": "Bangalore",
 		"dates": "2016/01/01-2016/06/31",
-		"description": "Android Developer at Google"
+		"description": "Read: In the name of your Lord Who creates, creates man from a clot. Read: And your Lord is the Most Bounteous, Who teaches by the use of the pen, teaches man that which he knew not."
 	}, {
 		"employer": "Udacity",
 		"title": "Web Developer",
 		"location": "Mumbai",
 		"dates": "2016/06/1-2016/12/31",
-		"description": "Full Stack Web Developer at Udacity"
-	}, {
-		"employer": "Self Employed",
-		"title": "Android and Web Developer",
-		"location": "Remote",
-		"dates": "2017/01/01-Present",
-		"description": "Working as freelancer on Android and Web projects"
+		"description": "(God is) the One Who has made for you the earth like a cradle and inserted roads into it for you. He sent water down from the sky and thereby We brought forth pairs of plants, each separate from the other. Eat! Pasture your cattle! Verily in this are Signs for people endued with intelligence."
 	}]
 } // end of work object
 
@@ -57,7 +51,7 @@ let projects = {
 let bio = {
 	"name": "Waseem Ahmed",
 	"role": "Web Developer",
-	"welcomeMessage": "",
+	"welcomeMessage": "Peace be upon you.",
 	"biopic": "./images/waseem-ahmed.jpg",
 	"contacts": {
 		"mobile": "+91 767 642 4299",
@@ -112,11 +106,25 @@ let education = {
 	}]
 } // end of education object
 
+function inName(fullName){
+	fullName = fullName.split(' ');
+	let firstName = fullName[0];
+	let secondName = fullName[1].toUpperCase();
+	firstName = firstName.slice(0,1).toUpperCase() + firstName.slice(1).toLowerCase();
+
+	return firstName + " " + secondName;
+}
+
 function showName() {
 	if( bio.name) {
-		let formattedName = HTMLheaderName.replace("%data%",bio.name);
+		let formattedName = HTMLheaderName.replace("%data%",inName(bio.name));
 		$("#header").prepend(formattedName); 
 	}
+}
+
+function showWelcomeMessage() {
+	let formattedMessage = HTMLwelcomeMsg.replace("%data%",bio.welcomeMessage)
+	$("#header").append(formattedMessage);
 }
 
 function showRole() {
@@ -127,36 +135,60 @@ function showRole() {
 }
 
 function showJobs() {
-	
-	for(jobIndex in work.jobs) {
-		$("#workExperience").append(HTMLworkStart);
-		let employer = work.jobs[jobIndex].employer;
-		let title = work.jobs[jobIndex].title;
+	$("#workExperience").append(HTMLworkStart);
+	 work.jobs.forEach(function(job) {
+		
+		let employer = job.employer;
+		let title = job.title;
+		let date = job.dates;
+		let location = job.location;
+		let description = job.description;
+
+		let formattedLocation = HTMLworkLocation.replace("%data%",location);
+		let formattedDescription = HTMLworkDescription.replace("%data%",description);
+		let formattedDate = HTMLworkDates.replace("%data%",date);
 		let formattedEmployer = HTMLworkEmployer.replace("%data%",employer);
 		let formattedTitle =  HTMLworkTitle.replace("%data%",title);
-
 		$(".work-entry:last").append(formattedEmployer+formattedTitle);
-	}	
+		$(".work-entry").append(formattedDate);
+		$(".work-entry").append(formattedLocation);
+		$(".work-entry").append(formattedDescription);
+	});
 }
 function showPic() {
 	let formattedPicUrl = HTMLbioPic.replace("%data%",bio.biopic);
 	$("#header").append(formattedPicUrl);
 }
-function showContactInfo(){
+function showContactInfo(id){
 	let formattedMobile = HTMLmobile.replace("%data%",bio.contacts.mobile);
 	let formattedEmail = HTMLemail.replace("%data%",bio.contacts.email);
 	let formattedGithub = HTMLgithub.replace("%data%",bio.contacts.github);
 	let formattedTwitter = HTMLtwitter.replace("%data%",bio.contacts.twitter);
 	let formattedLocation = HTMLlocation.replace("%data%",bio.contacts.location)
-	$("#topContacts:last").append(formattedMobile);
-	$("#topContacts:last").append(formattedEmail);
-	$("#topContacts:last").append(formattedGithub);
-	$("#topContacts:last").append(formattedTwitter);
-	$("#topContacts:last").append(formattedLocation);
+	$("#"+id+":last").append(formattedMobile);
+	$("#"+id+":last").append(formattedEmail);
+	$("#"+id+":last").append(formattedGithub);
+	$("#"+id+":last").append(formattedTwitter);
+	$("#"+id+":last").append(formattedLocation);
 
+}
+function showSkills() {
+	$("#header").append(HTMLskillsStart);
+	for(skillIndex in bio.skills) {
+		let formattedSkill = HTMLskills.replace("%data%",bio.skills[skillIndex]);
+		$("#skills:last").append(formattedSkill);
+	}
+}
+
+function showMap(){
+	$("#mapDiv").append(googleMap);	
 }
 showPic();
 showRole();
 showName();
-showContactInfo();
+showWelcomeMessage()
+showContactInfo("topContacts");
+showSkills();
 showJobs();
+showContactInfo("footerContacts");
+showMap();
