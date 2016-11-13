@@ -167,6 +167,10 @@ img {
   padding: 10px;
 }
 
+.project-entry img {
+  width: 250px;
+  height: 250px;
+}
 span {
   padding: 5px;
 }

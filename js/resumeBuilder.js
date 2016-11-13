@@ -25,7 +25,7 @@ let work = {
 		"dates": "2016/06/1-2016/12/31",
 		"description": "(God is) the One Who has made for you the earth like a cradle and inserted roads into it for you. He sent water down from the sky and thereby We brought forth pairs of plants, each separate from the other. Eat! Pasture your cattle! Verily in this are Signs for people endued with intelligence."
 	}],
-	"showJobs": function(){
+	"display": function(){
 		$("#workExperience").append(HTMLworkStart);
 		 this.jobs.forEach(function(job) {
 			
@@ -51,21 +51,27 @@ let work = {
 // projects object
 let projects = {
 	"projects": [{
-		"title": "",
-		"dates": "",
-		"description": "",
-		"images": ["url1", "url2", "url3"]
+		"title": "My Awosome Project",
+		"dates": "2016-07-01",
+		"description": "(God) is the One who spread out the earth and set therein mountains standing firm and rivers. For every fruit He placed two of a pair. He covers the day with the night. Verily in this there are Signs for people who reflect.",
+		"images": ["./images/p1.jpg", "./images/p2.jpg", "./images/p3.jpg"]
 	}, {
-		"title": "",
-		"dates": "",
-		"description": "",
-		"images": ["url1", "url2", "url3"]
-	}, {
-		"title": "",
-		"dates": "",
-		"description": "",
-		"images": ["url1", "url2", "url3"]
-	}]
+		"title": "My Another Great Project",
+		"dates": "2016-08-10",
+		"description": "And it is We who have constructed the heaven with might, and verily, it is We who are steadily expanding it.",
+		"images": ["./images/p1.jpg", "./images/p2.jpg", "./images/p3.jpg"]
+	}],
+	"display": function() {
+		$("#projects").append(HTMLprojectStart);
+		this.projects.forEach(function(project){
+			$(".project-entry").append(HTMLprojectTitle.replace("%data%",project.title));
+			$(".project-entry").append(HTMLprojectDates.replace("%data%",project.dates));
+			$(".project-entry").append(HTMLprojectDescription.replace("%data%",project.description));
+			project.images.forEach(function(image){
+				$(".project-entry").append(HTMLprojectImage.replace("%data%",image));
+			})
+		});
+	}
 } // end of projects
 
 // bio object
@@ -117,6 +123,12 @@ let bio = {
 			let formattedSkill = HTMLskills.replace("%data%",skill);
 			$("#skills:last").append(formattedSkill);
 		});
+	},
+	"display" : function() {
+		this.showBioInfo();
+		bio.showContactInfo("topContacts");
+		bio.showContactInfo("footerContacts");		
+		this.showSkills();
 	}
 
 } // end of bio object
@@ -124,44 +136,75 @@ let bio = {
 // education object
 let education = {
 	"schools": [{
-		"name": "",
-		"location": "",
-		"degree": "",
-		"dates": "",
-		"url": "url of school",
-		"majors": ["Major 1", "Major 2"]
+		"name": "St. Joseph P.U College",
+		"location": "Hassan,Karnataka,India",
+		"degree": "12th grade",
+		"dates": "2012-2014",
+		"url": "stjosephassan.com",
+		"majors": ["Physics","Chemistry","Maths","Computer Science"]
 	}, {
-		"name": "",
-		"location": "",
-		"degree": "",
-		"dates": "",
-		"url": "url of school",
-		"majors": ["Major 1", "Major 2"]
-	}, {
-		"name": "",
-		"location": "",
-		"degree": "",
-		"dates": "",
-		"url": "url of school",
-		"majors": ["Major 1", "Major 2"]
-	}],
+		"name": "N.D.R.K Institute of Technology",
+		"location": "Kandali,Hassan,Karnataka",
+		"degree": "B.E",
+		"dates": "2014-present",
+		"url": "ndrkit.ac.in",
+		"majors": ["Computer Science"]
+	}
+	],
 
 	"onlineCourses": [{
-		"title": "",
-		"school": "",
-		"dates": "",
-		"url": ""
+		"title": "Developing Android Apps",
+		"school": "Udacity",
+		"dates": "2016-07-01",
+		"url": "www.udacity.com"
 	}, {
-		"title": "",
-		"school": "",
-		"dates": "",
-		"url": ""
-	}, {
-		"title": "",
-		"school": "",
-		"dates": "",
-		"url": ""
-	}]
+		"title": "Into to HTML5 and CSS3",
+		"school": "Udacity",
+		"dates": "2016-07-01",
+		"url": "www.udacity.com"
+	}],
+
+	"showSchools" : function() {
+		$("#education").append(HTMLschoolStart);
+		this.schools.forEach(function(school){
+			
+			let name = HTMLschoolName.replace("%data%",school.name);
+			let degree = HTMLschoolDegree.replace("%data%",school.degree);
+			$(".education-entry").append(name+degree);
+
+
+			let date = HTMLschoolDates.replace("%data%",school.dates);
+			$(".education-entry").append(date);
+
+			let location = HTMLschoolLocation.replace("%data%",school.location);
+			$(".education-entry").append(location);
+
+			school.majors.forEach(function(major){
+				
+				$(".education-entry").append(HTMLschoolMajor.replace("%data%",major));
+			})	
+			
+		});
+	},
+
+	"showOnlineSchools" : function() {
+		$(".education-entry").append(HTMLonlineClasses);
+		this.onlineCourses.forEach(function(course){
+			let title = HTMLonlineTitle.replace("%data%",course.title);
+			let school = HTMLonlineSchool.replace("%data%",course.school);
+			$(".education-entry").append(title+school);
+
+			let date = HTMLonlineDates.replace("%data%",course.dates);
+			$(".education-entry").append(date);
+
+			let url = HTMLonlineURL.replace("%data%",course.url);
+			$(".education-entry").append(url);
+		});
+	},
+	"display" : function() {
+		this.showSchools();
+		this.showOnlineSchools();
+	}
 } // end of education object
 
 function inName(fullName){
@@ -178,9 +221,9 @@ function inName(fullName){
 function showMap(){
 	$("#mapDiv").append(googleMap);	
 }
-bio.showBioInfo();
-bio.showContactInfo("topContacts");
-bio.showSkills();
-work.showJobs();
-bio.showContactInfo("footerContacts");
-showMap();
+
+
+bio.display();
+work.display();
+projects.display();
+education.display();
