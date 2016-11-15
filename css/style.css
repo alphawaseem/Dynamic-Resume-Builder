@@ -13,7 +13,11 @@ h6 {
   margin:0;
   font-family: "Roboto", sans-serif;
 }
-
+body {
+  max-width: 95%;
+  margin:5px auto;
+  box-shadow: 5px 5px 25px 5px rgba(0, 0, 0, 0.4);
+}
 .clear-fix {
   overflow: auto;
 }
@@ -22,6 +26,11 @@ h6 {
 .work-entry,
 .project-entry {
   padding: 0 5%;
+
+}
+
+img {
+  max-width: 100%;
 }
 
 h1 {
@@ -30,7 +39,6 @@ h1 {
   line-height: 48px;
   display: inline;
 }
-
 h2 {
   font-weight: bold;
   font-size: 24px;
@@ -60,8 +68,12 @@ h5 {
   padding:10px 5%;
 
 }
-
-
+ h2 {
+  text-align: center;;
+ }
+.project-entry {
+  text-align: center;
+}
 .date-text {
   font-style: italic;
   font-size: 14px;
@@ -83,6 +95,9 @@ p {
   font-size: 14px;
   color: #333;
   line-height: 21px;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 a {
@@ -167,14 +182,13 @@ img {
   padding: 10px;
 }
 
-.project-entry img {
+.project-img {
   width: 250px;
   height: 250px;
 }
 span {
   padding: 5px;
 }
-
 #lets-connect {
   text-align: center;
 }
